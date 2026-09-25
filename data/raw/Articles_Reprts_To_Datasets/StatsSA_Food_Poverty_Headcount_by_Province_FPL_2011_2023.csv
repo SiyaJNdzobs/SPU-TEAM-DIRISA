@@ -1,0 +1,31 @@
+province,year,food_poverty_headcount_percent_FPL
+South Africa,2011,20.8
+South Africa,2015,22.4
+South Africa,2023,17.6
+Western Cape,2011,5.7
+Western Cape,2015,9.2
+Western Cape,2023,7.8
+Eastern Cape,2011,32.0
+Eastern Cape,2015,35.9
+Eastern Cape,2023,22.9
+Northern Cape,2011,20.9
+Northern Cape,2015,22.6
+Northern Cape,2023,18.8
+Free State,2011,17.6
+Free State,2015,16.5
+Free State,2023,13.5
+KwaZulu-Natal,2011,29.1
+KwaZulu-Natal,2015,31.0
+KwaZulu-Natal,2023,27.3
+North West,2011,23.1
+North West,2015,25.1
+North West,2023,27.3
+Gauteng,2011,7.5
+Gauteng,2015,8.1
+Gauteng,2023,10.7
+Mpumalanga,2011,24.0
+Mpumalanga,2015,23.9
+Mpumalanga,2023,14.3
+Limpopo,2011,35.8
+Limpopo,2015,39.9
+Limpopo,2023,20.8

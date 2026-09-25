@@ -1,0 +1,39 @@
+year,channel_type,channel_name,metric,percentage
+2023,Media channel,Television,Trust as source of election info,67
+2023,Media channel,Television,Preferred media for election info,62
+2023,Media channel,Social media,Trust as source of election info,23
+2023,Media channel,Social media,Preferred media for election info,42
+2023,Media channel,Radio,Trust as source of election info,36
+2023,Media channel,Radio,Preferred media for election info,31
+2023,Media channel,"SMS, WhatsApp, or other text message",Trust as source of election info,15
+2023,Media channel,"SMS, WhatsApp, or other text message",Preferred media for election info,24
+2023,Media channel,Internet websites that are not social media,Trust as source of election info,21
+2023,Media channel,Internet websites that are not social media,Preferred media for election info,23
+2023,Media channel,Newspapers,Trust as source of election info,23
+2023,Media channel,Newspapers,Preferred media for election info,19
+2023,Media channel,Posters,Trust as source of election info,11
+2023,Media channel,Posters,Preferred media for election info,13
+2023,Media channel,"Friends, relatives and neighbours",Trust as source of election info,7
+2023,Media channel,"Friends, relatives and neighbours",Preferred media for election info,12
+2023,Media channel,Community based organisation,Trust as source of election info,7
+2023,Media channel,Community based organisation,Preferred media for election info,7
+2023,Media channel,Educational institution or workplace,Trust as source of election info,6
+2023,Media channel,Educational institution or workplace,Preferred media for election info,7
+2023,Media channel,At a rally,Trust as source of election info,6
+2023,Media channel,At a rally,Preferred media for election info,6
+2023,Media channel,Religious institutions,Trust as source of election info,3
+2023,Media channel,Religious institutions,Preferred media for election info,3
+2023,Media channel,Don't know,Trust as source of election info,11
+2023,Media channel,Don't know,Preferred media for election info,8
+2023,IEC communication platform,IEC website (www.elections.org.za),Awareness,34
+2023,IEC communication platform,IEC website (www.elections.org.za),Usage,18
+2023,IEC communication platform,IEC 32810 SMS line to check registration status,Awareness,23
+2023,IEC communication platform,IEC 32810 SMS line to check registration status,Usage,16
+2023,IEC communication platform,IEC social media pages,Awareness,18
+2023,IEC communication platform,IEC social media pages,Usage,8
+2023,IEC communication platform,IEC Contact centre number (0800 11 8000),Awareness,15
+2023,IEC communication platform,IEC Contact centre number (0800 11 8000),Usage,7
+2023,IEC communication platform,IEC email (info@elections.org.za),Awareness,9
+2023,IEC communication platform,IEC email (info@elections.org.za),Usage,4
+2023,IEC communication platform,IEC WhatsApp page for voter education,Awareness,9
+2023,IEC communication platform,IEC WhatsApp page for voter education,Usage,5

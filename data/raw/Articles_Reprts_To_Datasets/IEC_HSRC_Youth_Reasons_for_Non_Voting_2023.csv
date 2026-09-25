@@ -1,0 +1,47 @@
+year,question_type,category_group,reason,subgroup,percentage
+2023,Open-ended (most important reason),,Voting makes no difference / meaningless (lack of efficacy),Voted in two or more previous elections,34
+2023,Open-ended (most important reason),,Voting makes no difference / meaningless (lack of efficacy),Voted in one previous election,37
+2023,Open-ended (most important reason),,Voting makes no difference / meaningless (lack of efficacy),Never voted,42
+2023,Open-ended (most important reason),,Perceived corruption among / lack of trust of politicians,Voted in two or more previous elections,28
+2023,Open-ended (most important reason),,Perceived corruption among / lack of trust of politicians,Voted in one previous election,24
+2023,Open-ended (most important reason),,Perceived corruption among / lack of trust of politicians,Never voted,23
+2023,Open-ended (most important reason),,Poor socio-economic conditions,Voted in two or more previous elections,30
+2023,Open-ended (most important reason),,Poor socio-economic conditions,Voted in one previous election,27
+2023,Open-ended (most important reason),,Poor socio-economic conditions,Never voted,18
+2023,Open-ended (most important reason),,Empty promises,Voted in two or more previous elections,18
+2023,Open-ended (most important reason),,Empty promises,Voted in one previous election,19
+2023,Open-ended (most important reason),,Empty promises,Never voted,14
+2023,Open-ended (most important reason),,Politicians don't care,Voted in two or more previous elections,13
+2023,Open-ended (most important reason),,Politicians don't care,Voted in one previous election,9
+2023,Open-ended (most important reason),,Politicians don't care,Never voted,7
+2023,Open-ended (most important reason),,After being elected parties/representatives are all the same,Voted in two or more previous elections,5
+2023,Open-ended (most important reason),,After being elected parties/representatives are all the same,Voted in one previous election,5
+2023,Open-ended (most important reason),,After being elected parties/representatives are all the same,Never voted,6
+2023,Open-ended (most important reason),,Loadshedding,Voted in two or more previous elections,3
+2023,Open-ended (most important reason),,Loadshedding,Voted in one previous election,3
+2023,Open-ended (most important reason),,Loadshedding,Never voted,2
+2023,Open-ended (most important reason),,Because ANC will win,Voted in two or more previous elections,3
+2023,Open-ended (most important reason),,Because ANC will win,Voted in one previous election,2
+2023,Open-ended (most important reason),,Because ANC will win,Never voted,3
+2023,Open-ended (most important reason),,Perceived electoral irregularities,Voted in two or more previous elections,2
+2023,Open-ended (most important reason),,Perceived electoral irregularities,Voted in one previous election,2
+2023,Open-ended (most important reason),,Perceived electoral irregularities,Never voted,2
+2023,Open-ended (most important reason),,Not registered to vote/no ID/underage,Voted in two or more previous elections,0
+2023,Open-ended (most important reason),,Not registered to vote/no ID/underage,Voted in one previous election,0
+2023,Open-ended (most important reason),,Not registered to vote/no ID/underage,Never voted,2
+2023,Open-ended (most important reason),,Irrelevant answers,Voted in two or more previous elections,0
+2023,Open-ended (most important reason),,Irrelevant answers,Voted in one previous election,0
+2023,Open-ended (most important reason),,Irrelevant answers,Never voted,1
+2023,Precoded (structured question),Party or performance evaluations (73% combined),"Poor government performance in addressing poverty, unemployment and corruption",All respondents,27
+2023,Precoded (structured question),Party or performance evaluations (73% combined),A lack of change since the last election,All respondents,16
+2023,Precoded (structured question),Party or performance evaluations (73% combined),Poor government performance in delivering services,All respondents,15
+2023,Precoded (structured question),Party or performance evaluations (73% combined),Empty promises from political parties,All respondents,11
+2023,Precoded (structured question),Party or performance evaluations (73% combined),Not interested in any of the existing political parties,All respondents,4
+2023,Precoded (structured question),Disillusionment and disinterest (21% combined),Not interested in voting,All respondents,10
+2023,Precoded (structured question),Disillusionment and disinterest (21% combined),My vote would not make a difference,All respondents,7
+2023,Precoded (structured question),Disillusionment and disinterest (21% combined),Disillusioned with politics,All respondents,2
+2023,Precoded (structured question),Disillusionment and disinterest (21% combined),Elections are pointless,All respondents,2
+2023,Precoded (structured question),Disillusionment and disinterest (21% combined),Not interested in politics,All respondents,0
+2023,Precoded (structured question),Administrative and individual barriers (5% combined),Administrative barriers (not registered; no ID; long queues; distance to VS; VS problems),All respondents,4
+2023,Precoded (structured question),Administrative and individual barriers (5% combined),Individual barriers (busy; transport; health),All respondents,1
+2023,Precoded (structured question),None of the above,None of the above,All respondents,1

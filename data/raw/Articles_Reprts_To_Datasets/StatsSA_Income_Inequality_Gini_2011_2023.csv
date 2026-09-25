@@ -1,0 +1,49 @@
+category_type,category,year,gini_coefficient_income_per_capita
+National,South Africa,2011,0.678
+National,South Africa,2015,0.656
+National,South Africa,2023,0.635
+Sex,Male,2011,0.672
+Sex,Male,2015,0.649
+Sex,Male,2023,0.63
+Sex,Female,2011,0.683
+Sex,Female,2015,0.663
+Sex,Female,2023,0.638
+Population group,Black African,2011,0.62
+Population group,Black African,2015,0.613
+Population group,Black African,2023,0.567
+Population group,Coloured,2011,0.575
+Population group,Coloured,2015,0.554
+Population group,Coloured,2023,0.545
+Population group,Indian/Asian,2011,0.503
+Population group,Indian/Asian,2015,0.521
+Population group,Indian/Asian,2023,0.51
+Population group,White,2011,0.435
+Population group,White,2015,0.443
+Population group,White,2023,0.468
+Province,Western Cape,2011,0.617
+Province,Western Cape,2015,0.618
+Province,Western Cape,2023,0.634
+Province,Eastern Cape,2011,0.684
+Province,Eastern Cape,2015,0.66
+Province,Eastern Cape,2023,0.603
+Province,Northern Cape,2011,0.631
+Province,Northern Cape,2015,0.635
+Province,Northern Cape,2023,0.608
+Province,Free State,2011,0.648
+Province,Free State,2015,0.619
+Province,Free State,2023,0.57
+Province,KwaZulu-Natal,2011,0.672
+Province,KwaZulu-Natal,2015,0.645
+Province,KwaZulu-Natal,2023,0.604
+Province,North West,2011,0.707
+Province,North West,2015,0.611
+Province,North West,2023,0.599
+Province,Gauteng,2011,0.627
+Province,Gauteng,2015,0.623
+Province,Gauteng,2023,0.628
+Province,Mpumalanga,2011,0.668
+Province,Mpumalanga,2015,0.625
+Province,Mpumalanga,2023,0.541
+Province,Limpopo,2011,0.65
+Province,Limpopo,2015,0.65
+Province,Limpopo,2023,0.573
