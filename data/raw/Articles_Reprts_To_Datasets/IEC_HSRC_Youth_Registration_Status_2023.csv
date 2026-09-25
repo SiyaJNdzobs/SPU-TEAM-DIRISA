@@ -1,9 +1,0 @@
-year,metric,category,percentage,is_estimated_complement
-2023,Registration status,Registered as a voter,43,False
-2023,Registration status,Not registered - intend to register before 2024 elections,17,False
-2023,Registration status,Not registered - do not intend to register,36,False
-2023,Registration status,Don't know / other (residual),4,True
-2023,Online registration awareness,Aware could register online,60,False
-2023,Online registration awareness,Not aware could register online (complement),40,True
-2023,Willingness to use own data for online registration,Not willing,71,False
-2023,Willingness to use own data for online registration,Willing (complement),29,True
