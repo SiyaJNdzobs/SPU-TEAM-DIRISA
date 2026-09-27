@@ -1197,7 +1197,7 @@ with just_col1:
     st.markdown(f"""
     <div style='background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.1rem 1.35rem; font-size: 0.84rem; color: #334155; line-height: 1.6; height: 100%; box-shadow: 0 1px 3px rgba(0,0,0,0.02);'>
         <div style='font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-bottom: 0.6rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.4rem;'>
-            🔍 Who is Not Voting? (Demographic Profile of Civic Abstention)
+            Who is Not Voting? (Demographic Profile of Civic Abstention)
         </div>
         <p style='margin-bottom: 0.6rem;'>Our machine learning feature importance analysis and demographic fusion identify three primary social cohorts driving the collapse of voter turnout in KwaZulu-Natal:</p>
         <ul style='margin-bottom: 0.75rem; padding-left: 1.2rem;'>
@@ -1215,7 +1215,7 @@ with just_col2:
     st.markdown(f"""
     <div style='background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.1rem 1.35rem; font-size: 0.84rem; color: #334155; line-height: 1.6; height: 100%; box-shadow: 0 1px 3px rgba(0,0,0,0.02);'>
         <div style='font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-bottom: 0.6rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.4rem;'>
-            📍 Where Are They Located? (Geographic Hotspots in KZN)
+            Where Are They Located? (Geographic Hotspots in KZN)
         </div>
         <p style='margin-bottom: 0.6rem;'>Voter disengagement in KwaZulu-Natal is geographically concentrated in three distinct spatial corridors:</p>
         <ul style='margin-bottom: 0.75rem; padding-left: 1.2rem;'>
@@ -1245,7 +1245,7 @@ with fb_col1:
     st.markdown("""
     <div style='background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.1rem 1.35rem; font-size: 0.84rem; color: #334155; line-height: 1.6; height: 100%; box-shadow: 0 1px 3px rgba(0,0,0,0.02);'>
         <div style='font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-bottom: 0.6rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.4rem;'>
-            🚀 Strategic Objective: Expanding from KwaZulu-Natal to All 9 South African Provinces
+            Strategic Objective: Expanding from KwaZulu-Natal to All 9 South African Provinces
         </div>
         <p style='margin-bottom: 0.6rem;'>
             This decision-support platform is currently operational across all <b>921 wards in KwaZulu-Natal</b>. To support the <b>Independent Electoral Commission (IEC)</b>, civil society, municipal governance bodies, and investigative journalists ahead of South Africa's future national and provincial elections, our development roadmap plans a nationwide rollout to all <b>4,468 wards across all 9 provinces</b>.
@@ -1254,7 +1254,7 @@ with fb_col1:
             To decide how to calibrate feature engineering, localized grievance modeling, and UI workflows for national scale, we invite all electoral stakeholders to evaluate the platform and rate model performance.
         </p>
         <div style='background: #eff6ff; border-left: 3px solid #3b82f6; padding: 0.6rem 0.85rem; border-radius: 0 4px 4px 0; font-size: 0.78rem; color: #1e40af;'>
-            <b>Stakeholder Feedback Loop:</b> All submissions are securely logged and transmitted to <code>siyajndzobs@gmail.com</code> to refine algorithm architectures for the national rollout.
+            <b>Stakeholder Feedback Loop:</b> All submissions are securely logged and transmitted to <b>Us</b> to refine algorithm architectures for the national rollout.
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -1263,14 +1263,14 @@ with fb_col2:
     st.markdown("""
     <div style='background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.1rem 1.35rem; font-size: 0.84rem; color: #334155; line-height: 1.6; height: 100%;'>
         <div style='font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-bottom: 0.6rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.4rem;'>
-            ⭐ Submit Your Evaluation & Rating
+            Submit Your Evaluation & Rating
         </div>
         <p style='margin-bottom: 0.8rem;'>
             Are you an <b>IEC official, registered voter, journalist, academic researcher, or data scientist</b>? Please share your rating and critique of the model:
         </p>
     """, unsafe_allow_html=True)
     
-    if st.button("📝 Open Stakeholder Review Form", key="btn_open_bottom_review", type="primary", use_container_width=True):
+    if st.button("Open Stakeholder Review Form", key="btn_open_bottom_review", type="primary", use_container_width=True):
         if hasattr(st, "dialog"):
             review_dialog()
         else:
@@ -1283,7 +1283,6 @@ with fb_col2:
     st.markdown(f"""
         <div style='margin-top: 0.8rem; font-size: 0.78rem; color: #64748b;'>
             • Active Feedback Channel: <b>Open</b><br>
-            • Lead Developer Contact: <b>siyajndzobs@gmail.com</b><br>
             • Reviews Logged This Session: <b>{reviews_count}</b>
         </div>
     </div>
