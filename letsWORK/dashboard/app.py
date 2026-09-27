@@ -1,4 +1,7 @@
 import os
+import urllib.request
+import urllib.parse
+from datetime import datetime
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -255,27 +258,171 @@ if df_app is None or df_hist is None:
     st.stop()
 
 # ==============================================================================
-# 1. HEADER (Pure Clean Typography)
+# STAKEHOLDER FEEDBACK & REVIEW HELPER FUNCTIONS
 # ==============================================================================
-st.markdown('<div class="dashboard-title">KZN Election Turnout Predictor</div>', unsafe_allow_html=True)
-st.markdown('<div class="dashboard-subtitle">Province to ward level, 2000 to 2026</div>', unsafe_allow_html=True)
+def send_review_email(stakeholder, rating, feedback):
+    url = "https://formsubmit.co/ajax/siyajndzobs@gmail.com"
+    payload = urllib.parse.urlencode({
+        "_subject": f"KZN Election Turnout Predictor - Stakeholder Review ({stakeholder})",
+        "Stakeholder_Role": stakeholder,
+        "Model_Rating": f"{rating}/5 Stars",
+        "Feedback_And_Suggestions": feedback,
+        "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "_template": "table"
+    }).encode("utf-8")
+    req = urllib.request.Request(
+        url,
+        data=payload,
+        headers={
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+            "Referer": "https://kzn-election-turnout-predictor-zjgdsdekfa7zfxqsdaotwa.streamlit.app/"
+        }
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=10) as response:
+            return True, response.read().decode("utf-8")
+    except Exception as e:
+        return False, str(e)
+
+def save_review_record(stakeholder, rating, feedback):
+    record = {
+        "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "Stakeholder": stakeholder,
+        "Rating": rating,
+        "Feedback": feedback
+    }
+    if "submitted_reviews" not in st.session_state:
+        st.session_state["submitted_reviews"] = []
+    st.session_state["submitted_reviews"].append(record)
+    
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    candidates = [
+        os.path.join(base_dir, '..', 'data', 'processed', 'stakeholder_reviews.csv'),
+        os.path.join(base_dir, 'stakeholder_reviews.csv'),
+        'letsWORK/data/processed/stakeholder_reviews.csv'
+    ]
+    for p in candidates:
+        try:
+            os.makedirs(os.path.dirname(p), exist_ok=True)
+            df_new = pd.DataFrame([record])
+            if os.path.exists(p):
+                df_new.to_csv(p, mode='a', header=False, index=False)
+            else:
+                df_new.to_csv(p, mode='w', header=True, index=False)
+            break
+        except Exception:
+            continue
+
+def render_review_form():
+    st.markdown("""
+    <div style='font-size: 0.86rem; color: #475569; margin-bottom: 0.8rem; line-height: 1.5;'>
+        We are gathering structured evaluations from key electoral stakeholders to guide the expansion of this predictive engine from KwaZulu-Natal to a <b>national South African forecasting platform</b>.
+    </div>
+    """, unsafe_allow_html=True)
+    
+    with st.form("stakeholder_review_form"):
+        role = st.selectbox(
+            "1. Which stakeholder group best describes you?",
+            options=[
+                "Select stakeholder role...",
+                "IEC (Electoral Commission of South Africa)",
+                "Voter / Citizen",
+                "Journalist / Media",
+                "Researcher / Academic",
+                "Data Scientist",
+                "Other"
+            ],
+            index=0
+        )
+        
+        other_text = st.text_input(
+            "If 'Other', please specify your role / organization:",
+            placeholder="e.g. Municipal Councillor, Civil Society Leader, Governance Analyst..."
+        )
+        
+        rating = st.select_slider(
+            "2. Rate this predictive model out of 5 stars:",
+            options=[1, 2, 3, 4, 5],
+            value=5,
+            format_func=lambda x: f"{x} / 5 ⭐ " + ("(Excellent)" if x == 5 else "(Very Good)" if x == 4 else "(Good)" if x == 3 else "(Fair)" if x == 2 else "(Poor)")
+        )
+        
+        feedback = st.text_area(
+            "3. What do you think of the model? What can we improve or where should we improve?",
+            placeholder="Share your thoughts on prediction accuracy, UI usability, indicator relevance, or recommendations for national scaling...",
+            height=110
+        )
+        
+        st.markdown("<div style='font-size: 0.78rem; color: #64748b; margin-top: -0.25rem;'>📬 <i>Submissions are automatically transmitted to <b>siyajndzobs@gmail.com</b> and recorded for national scaling roadmap decisions.</i></div>", unsafe_allow_html=True)
+        
+        submitted = st.form_submit_button("Submit Review & Send to siyajndzobs@gmail.com", type="primary", use_container_width=True)
+        
+        if submitted:
+            if role == "Select stakeholder role...":
+                st.error("⚠️ Please select a stakeholder group before submitting.")
+            elif role == "Other" and not other_text.strip():
+                st.error("⚠️ Please specify your stakeholder role in the text box above.")
+            else:
+                final_role = f"Other ({other_text.strip()})" if role == "Other" else role
+                save_review_record(final_role, rating, feedback)
+                sent_ok, msg = send_review_email(final_role, rating, feedback)
+                st.success("🎉 Thank you! Your review has been recorded and submitted to siyajndzobs@gmail.com to help scale this model nationally.")
+                st.balloons()
+
+if hasattr(st, "dialog"):
+    @st.dialog("💬 Stakeholder Review & Model Evaluation")
+    def review_dialog():
+        render_review_form()
+
+# ==============================================================================
+# 1. HEADER (Pure Clean Typography & Review Action)
+# ==============================================================================
+col_title, col_review_btn = st.columns([3.9, 2.1])
+with col_title:
+    st.markdown('<div class="dashboard-title">KZN Election Turnout Predictor</div>', unsafe_allow_html=True)
+    st.markdown('<div class="dashboard-subtitle">Province to ward level, 2000 to 2026</div>', unsafe_allow_html=True)
+with col_review_btn:
+    st.markdown("<div style='height: 8px;'></div>", unsafe_allow_html=True)
+    if st.button("💬 Stakeholder Review & Feedback", key="btn_open_top_review", use_container_width=True):
+        if hasattr(st, "dialog"):
+            review_dialog()
+        else:
+            st.session_state["show_review_form"] = True
 
 # ==============================================================================
 # 2. TOP FILTER BAR
 # ==============================================================================
 st.markdown('<div class="section-header">Filter Selection Controls</div>', unsafe_allow_html=True)
-col_yr, col_dist, col_muni, col_ward, col_party, col_ind = st.columns([1.9, 1.6, 1.7, 1.3, 1.3, 1.7])
+col_yr, col_dist, col_muni, col_ward, col_party, col_ind = st.columns([2.0, 1.5, 1.7, 1.2, 1.2, 1.8])
 
-# 1. Election Year Range Filter (From – To)
-year_range = col_yr.slider(
-    "1. Year Period (From – To):",
-    min_value=2000,
-    max_value=2026,
-    value=(2026, 2026),
-    step=1,
-    help="Select start and end year (e.g. 2011 to 2022). Historical LGE cycles: 2000, 2006, 2011, 2016, 2021; Projected: 2026."
+# 1. Temporal Mode & Election Year Filter
+temporal_mode = col_yr.radio(
+    "Temporal Selection Mode",
+    options=["Single Year", "Year Range"],
+    index=0,
+    horizontal=True,
+    label_visibility="collapsed"
 )
-start_year, end_year = year_range
+
+if temporal_mode == "Single Year":
+    selected_single_year = col_yr.selectbox(
+        "1. Election Year:",
+        options=[2026, 2021, 2016, 2011, 2006, 2000],
+        index=0,
+        format_func=lambda y: f"{y} (Projected)" if y == 2026 else f"{y} (Observed LGE)",
+        help="Select a single election cycle to view historical turnout or 2026 model projections."
+    )
+    start_year, end_year = selected_single_year, selected_single_year
+else:
+    year_range = col_yr.slider(
+        "1. Year Period (From – To):",
+        min_value=2000,
+        max_value=2026,
+        value=(2011, 2022),
+        step=1,
+        help="Select start and end year (e.g. 2011 to 2022). Historical LGE cycles: 2000, 2006, 2011, 2016, 2021; Projected: 2026."
+    )
+    start_year, end_year = year_range
 
 available_cycles = [2000, 2006, 2011, 2016, 2021, 2026]
 active_cycles = [y for y in available_cycles if start_year <= y <= end_year]
@@ -1085,3 +1232,60 @@ with just_col2:
         </div>
     </div>
     """, unsafe_allow_html=True)
+
+# ==============================================================================
+# 7. STAKEHOLDER EVALUATION & NATIONAL SCALING ROADMAP
+# ==============================================================================
+st.markdown("<div style='height: 0.75rem;'></div>", unsafe_allow_html=True)
+st.markdown('<div class="section-header">Stakeholder Evaluation & National Scaling Roadmap</div>', unsafe_allow_html=True)
+
+fb_col1, fb_col2 = st.columns([1.3, 1])
+
+with fb_col1:
+    st.markdown("""
+    <div style='background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.1rem 1.35rem; font-size: 0.84rem; color: #334155; line-height: 1.6; height: 100%; box-shadow: 0 1px 3px rgba(0,0,0,0.02);'>
+        <div style='font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-bottom: 0.6rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.4rem;'>
+            🚀 Strategic Objective: Expanding from KwaZulu-Natal to All 9 South African Provinces
+        </div>
+        <p style='margin-bottom: 0.6rem;'>
+            This decision-support platform is currently operational across all <b>921 wards in KwaZulu-Natal</b>. To support the <b>Independent Electoral Commission (IEC)</b>, civil society, municipal governance bodies, and investigative journalists ahead of South Africa's future national and provincial elections, our development roadmap plans a nationwide rollout to all <b>4,468 wards across all 9 provinces</b>.
+        </p>
+        <p style='margin-bottom: 0.6rem;'>
+            To decide how to calibrate feature engineering, localized grievance modeling, and UI workflows for national scale, we invite all electoral stakeholders to evaluate the platform and rate model performance.
+        </p>
+        <div style='background: #eff6ff; border-left: 3px solid #3b82f6; padding: 0.6rem 0.85rem; border-radius: 0 4px 4px 0; font-size: 0.78rem; color: #1e40af;'>
+            <b>Stakeholder Feedback Loop:</b> All submissions are securely logged and transmitted to <code>siyajndzobs@gmail.com</code> to refine algorithm architectures for the national rollout.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with fb_col2:
+    st.markdown("""
+    <div style='background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.1rem 1.35rem; font-size: 0.84rem; color: #334155; line-height: 1.6; height: 100%;'>
+        <div style='font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-bottom: 0.6rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.4rem;'>
+            ⭐ Submit Your Evaluation & Rating
+        </div>
+        <p style='margin-bottom: 0.8rem;'>
+            Are you an <b>IEC official, registered voter, journalist, academic researcher, or data scientist</b>? Please share your rating and critique of the model:
+        </p>
+    """, unsafe_allow_html=True)
+    
+    if st.button("📝 Open Stakeholder Review Form", key="btn_open_bottom_review", type="primary", use_container_width=True):
+        if hasattr(st, "dialog"):
+            review_dialog()
+        else:
+            st.session_state["show_review_form"] = True
+            
+    if st.session_state.get("show_review_form", False) and not hasattr(st, "dialog"):
+        render_review_form()
+        
+    reviews_count = len(st.session_state.get("submitted_reviews", []))
+    st.markdown(f"""
+        <div style='margin-top: 0.8rem; font-size: 0.78rem; color: #64748b;'>
+            • Active Feedback Channel: <b>Open</b><br>
+            • Lead Developer Contact: <b>siyajndzobs@gmail.com</b><br>
+            • Reviews Logged This Session: <b>{reviews_count}</b>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+

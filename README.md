@@ -23,8 +23,8 @@ The **KZN Election Turnout Predictor** platform bridges advanced predictive mode
    - **Who is Not Voting? (Demographic Profiling):** Diagnoses disaffected & unregistered youth aged 18–29 (>65% of non-voters, facing >40% youth unemployment), informal settlement residents protesting municipal service collapse, and deep rural subsistence households facing geographic isolation.
    - **Where Are They Located? (Geographic Hotspots):** Maps civic abstention clusters across the eThekwini peri-urban informal belt (Inanda, Ntuzuma, KwaMashu, Umlazi), the northern rural traditional authority corridor (Umkhanyakude, Zululand, King Cetshwayo), and post-industrial midland towns (Newcastle, Dannhauser, Endumeni).
    - Clarifies the critical distinction between the *Turnout Gap* (registered non-voters) and the *Voter Registration Gap* (unregistered eligible citizens).
-3. **Interactive Year Period Range Filter (From – To):**
-   - Enables users to specify any temporal window from **2000 to 2026** (e.g., `2011 to 2022`, `2016 to 2021`, or `2026 Projected`).
+3. **Dual Temporal Selection Mode (Single Year & Year Range):**
+   - Enables users to toggle between evaluating individual election cycles (e.g. `2026 Projected`, `2021 Observed`, `2016`, `2011`, `2006`, `2000`) or specifying custom period windows from **2000 to 2026** (e.g., `2011 to 2022`).
    - Automatically detects all historical Local Government Election cycles within the selected window (2000, 2006, 2011, 2016, 2021, 2026).
    - Computes dynamic **Mean Turnout** and **Cumulative Votes Cast** with cycle-average benchmarks across the chosen period.
 4. **Dedicated "Number of Votes" Forecasting Feature:**
@@ -42,6 +42,9 @@ The **KZN Election Turnout Predictor** platform bridges advanced predictive mode
 8. **Strictly Runnable Pipeline Notebook (`.ipynb`):**
    - Consolidated master pipeline located at [`letsWORK/notebook/full_pipeline.ipynb`](letsWORK/notebook/full_pipeline.ipynb).
    - Built to standard Jupyter Notebook format with full Python 3 kernel metadata, robust path resolvers, and 23 pre-computed execution outputs for instant rendering on GitHub and all IDEs.
+9. **Stakeholder Evaluation & National Scaling Feedback System:**
+   - Features a built-in review dialog allowing **IEC officials, registered voters, journalists, academic researchers, and data scientists** to rate model reliability out of 5 stars and submit qualitative feedback.
+   - Automatically transmits evaluations to `siyajndzobs@gmail.com` and records them to `stakeholder_reviews.csv` to directly guide our future development roadmap for scaling this predictive system from KwaZulu-Natal (921 wards) to **4,468 wards across all 9 South African provinces**.
 
 ---
 
