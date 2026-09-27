@@ -267,7 +267,7 @@ parties = ["All Parties"] + sorted(df_app['LeadingParty'].dropna().unique().toli
 selected_party = filter_col4.selectbox("4. Leading Party:", parties, index=0)
 
 # Indicator Overlay View
-indicator_views = ["All Indicators", "Projected Turnout", "Unemployment Rate", "Poverty Index", "Service Delivery Rating"]
+indicator_views = ["All Indicators (Party in Charge)", "Projected Turnout", "Unemployment Rate", "Poverty Index", "Service Delivery Rating"]
 selected_indicator = filter_col5.selectbox("5. Indicator View:", indicator_views, index=0)
 
 # Apply All Filters to create `df_filtered`
@@ -344,27 +344,24 @@ mid_col1, mid_col2, mid_col3 = st.columns([4.2, 2.8, 3.0])
 with mid_col1:
     st.markdown('<div class="section-header">Spatial Coverage and Regional Projections</div>', unsafe_allow_html=True)
     
-    # Determine color dimension based on indicator view
-    if selected_indicator in ["All Indicators", "Projected Turnout"]:
-        color_col = 'PredictedTurnout2026_RF'
-        color_scale = 'RdYlGn'
-        color_range = [35, 65]
-        labels_dict = {'PredictedTurnout2026_RF': 'Turnout (%)'}
-    elif selected_indicator == "Unemployment Rate":
-        color_col = 'UnemploymentRate'
-        color_scale = 'Reds'
-        color_range = [25, 45]
-        labels_dict = {'UnemploymentRate': 'Unemployment (%)'}
-    elif selected_indicator == "Poverty Index":
-        color_col = 'PovertyRate'
-        color_scale = 'Purples'
-        color_range = [30, 60]
-        labels_dict = {'PovertyRate': 'Poverty (%)'}
+    # Dynamic center and zoom based on geographic filter context
+    if selected_ward != "All Wards" and len(df_filtered) > 0:
+        center_lat = float(df_filtered['Latitude'].iloc[0])
+        center_lon = float(df_filtered['Longitude'].iloc[0])
+        zoom_level = 11.2
+    elif selected_muni != "All Municipalities" and len(df_filtered) > 0:
+        center_lat = float(df_filtered['Latitude'].mean())
+        center_lon = float(df_filtered['Longitude'].mean())
+        zoom_level = 9.2
+    elif selected_district != "All Districts" and len(df_filtered) > 0:
+        center_lat = float(df_filtered['Latitude'].mean())
+        center_lon = float(df_filtered['Longitude'].mean())
+        zoom_level = 8.0
     else:
-        color_col = 'ServiceDeliveryIndex'
-        color_scale = 'Blues'
-        color_range = [2, 9]
-        labels_dict = {'ServiceDeliveryIndex': 'Service Index (1-10)'}
+        # Full KZN statewide overview
+        center_lat = -29.0
+        center_lon = 31.0
+        zoom_level = 6.9
         
     hover_info = {
         "Latitude": False,
@@ -379,69 +376,126 @@ with mid_col1:
         "ServiceDeliveryIndex": ':.1f'
     }
     
+    # Configure map visualization parameters
+    is_discrete = (selected_indicator == "All Indicators (Party in Charge)")
+    
+    if is_discrete:
+        color_col = 'LeadingParty'
+        color_map = PARTY_COLORS
+        color_scale = None
+        color_range = None
+        labels_dict = {'LeadingParty': 'Governing Party'}
+    elif selected_indicator == "Projected Turnout":
+        color_col = 'PredictedTurnout2026_RF'
+        color_map = None
+        color_scale = 'RdYlGn'
+        color_range = [35, 65]
+        labels_dict = {'PredictedTurnout2026_RF': 'Turnout (%)'}
+    elif selected_indicator == "Unemployment Rate":
+        color_col = 'UnemploymentRate'
+        color_map = None
+        color_scale = 'Reds'
+        color_range = [25, 45]
+        labels_dict = {'UnemploymentRate': 'Unemployment (%)'}
+    elif selected_indicator == "Poverty Index":
+        color_col = 'PovertyRate'
+        color_map = None
+        color_scale = 'Purples'
+        color_range = [30, 60]
+        labels_dict = {'PovertyRate': 'Poverty (%)'}
+    else:
+        color_col = 'ServiceDeliveryIndex'
+        color_map = None
+        color_scale = 'Blues'
+        color_range = [2, 9]
+        labels_dict = {'ServiceDeliveryIndex': 'Service Index (1-10)'}
+        
     try:
         if hasattr(px, 'scatter_map'):
-            fig_map = px.scatter_map(
-                df_filtered,
-                lat="Latitude",
-                lon="Longitude",
-                color=color_col,
-                size="RegisteredVoters_2026",
-                size_max=12,
-                color_continuous_scale=color_scale,
-                range_color=color_range,
-                zoom=6.8,
-                center={"lat": -29.0, "lon": 31.0},
-                map_style="carto-positron",
-                hover_name="ward",
-                hover_data=hover_info,
-                labels=labels_dict,
-                height=380
-            )
+            map_kwargs = {
+                'data_frame': df_filtered,
+                'lat': "Latitude",
+                'lon': "Longitude",
+                'color': color_col,
+                'size': "RegisteredVoters_2026",
+                'size_max': 12,
+                'zoom': zoom_level,
+                'center': {"lat": center_lat, "lon": center_lon},
+                'map_style': "carto-positron",
+                'hover_name': "ward",
+                'hover_data': hover_info,
+                'labels': labels_dict,
+                'height': 380
+            }
+            if is_discrete:
+                map_kwargs['color_discrete_map'] = color_map
+            else:
+                map_kwargs['color_continuous_scale'] = color_scale
+                map_kwargs['range_color'] = color_range
+                
+            fig_map = px.scatter_map(**map_kwargs)
         else:
-            fig_map = px.scatter_mapbox(
-                df_filtered,
-                lat="Latitude",
-                lon="Longitude",
-                color=color_col,
-                size="RegisteredVoters_2026",
-                size_max=12,
-                color_continuous_scale=color_scale,
-                range_color=color_range,
-                zoom=6.8,
-                center={"lat": -29.0, "lon": 31.0},
-                mapbox_style="carto-positron",
-                hover_name="ward",
-                hover_data=hover_info,
-                labels=labels_dict,
-                height=380
-            )
+            map_kwargs = {
+                'data_frame': df_filtered,
+                'lat': "Latitude",
+                'lon': "Longitude",
+                'color': color_col,
+                'size': "RegisteredVoters_2026",
+                'size_max': 12,
+                'zoom': zoom_level,
+                'center': {"lat": center_lat, "lon": center_lon},
+                'mapbox_style': "carto-positron",
+                'hover_name': "ward",
+                'hover_data': hover_info,
+                'labels': labels_dict,
+                'height': 380
+            }
+            if is_discrete:
+                map_kwargs['color_discrete_map'] = color_map
+            else:
+                map_kwargs['color_continuous_scale'] = color_scale
+                map_kwargs['range_color'] = color_range
+                
+            fig_map = px.scatter_mapbox(**map_kwargs)
     except Exception:
-        fig_map = px.scatter(
-            df_filtered,
-            x="Longitude",
-            y="Latitude",
-            color=color_col,
-            size="RegisteredVoters_2026",
-            size_max=12,
-            color_continuous_scale=color_scale,
-            range_color=color_range,
-            hover_name="ward",
-            hover_data=hover_info,
-            labels=labels_dict,
-            height=380
-        )
+        scatter_kwargs = {
+            'data_frame': df_filtered,
+            'x': "Longitude",
+            'y': "Latitude",
+            'color': color_col,
+            'size': "RegisteredVoters_2026",
+            'size_max': 12,
+            'hover_name': "ward",
+            'hover_data': hover_info,
+            'labels': labels_dict,
+            'height': 380
+        }
+        if is_discrete:
+            scatter_kwargs['color_discrete_map'] = color_map
+        else:
+            scatter_kwargs['color_continuous_scale'] = color_scale
+            scatter_kwargs['range_color'] = color_range
+        fig_map = px.scatter(**scatter_kwargs)
         
-    fig_map.update_layout(
-        margin={"r":0,"t":0,"l":0,"b":0},
-        coloraxis_colorbar=dict(
+    layout_update = {"margin": {"r":0,"t":0,"l":0,"b":0}}
+    if is_discrete:
+        layout_update["legend"] = dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.01,
+            xanchor="left",
+            x=0,
+            font=dict(size=9)
+        )
+    else:
+        layout_update["coloraxis_colorbar"] = dict(
             title="",
             thickness=10,
             len=0.75,
             x=0.98,
             y=0.5
         )
-    )
+    fig_map.update_layout(**layout_update)
     st.plotly_chart(fig_map, use_container_width=True)
 
 # Column 2: Overview Footprint by Party (Donut Chart)
