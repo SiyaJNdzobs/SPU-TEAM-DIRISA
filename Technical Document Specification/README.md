@@ -138,7 +138,7 @@ flowchart TD
    * Accommodates both single-cycle operational audits (e.g., evaluating just 2026 Projected or 2021 Observed) and multi-cycle longitudinal period windows (`2011 to 2022`, `2000 to 2026`) with dynamic cycle detection and cumulative ballot calculations.
 7. **Stakeholder Evaluation & National Scaling Feedback System:**
    * Embeds an executive review form allowing **IEC officials, registered voters, journalists, academic researchers, and data scientists** to evaluate the platform, rate predictive performance out of 5 stars, and submit qualitative recommendations.
-   * Transmits evaluations directly to `siyajndzobs@gmail.com` and records them to `stakeholder_reviews.csv`, establishing an empirical feedback loop to guide our strategic roadmap for scaling from KwaZulu-Natal (921 wards) to a comprehensive national model covering all **4,468 wards across all 9 South African provinces**.
+   * Transmits evaluations directly to sending us an email and records them to `stakeholder_reviews.csv`, establishing an empirical feedback loop to guide our strategic roadmap for scaling from KwaZulu-Natal (921 wards) to a comprehensive national model covering all **4,468 wards across all 9 South African provinces**.
 
 ---
 
