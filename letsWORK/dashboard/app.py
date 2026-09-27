@@ -267,7 +267,7 @@ parties = ["All Parties"] + sorted(df_app['LeadingParty'].dropna().unique().toli
 selected_party = filter_col4.selectbox("4. Leading Party:", parties, index=0)
 
 # Indicator Overlay View
-indicator_views = ["Projected Turnout", "Unemployment Rate", "Poverty Index", "Service Delivery Rating"]
+indicator_views = ["All Indicators", "Projected Turnout", "Unemployment Rate", "Poverty Index", "Service Delivery Rating"]
 selected_indicator = filter_col5.selectbox("5. Indicator View:", indicator_views, index=0)
 
 # Apply All Filters to create `df_filtered`
@@ -345,7 +345,7 @@ with mid_col1:
     st.markdown('<div class="section-header">Spatial Coverage and Regional Projections</div>', unsafe_allow_html=True)
     
     # Determine color dimension based on indicator view
-    if selected_indicator == "Projected Turnout":
+    if selected_indicator in ["All Indicators", "Projected Turnout"]:
         color_col = 'PredictedTurnout2026_RF'
         color_scale = 'RdYlGn'
         color_range = [35, 65]
@@ -366,33 +366,72 @@ with mid_col1:
         color_range = [2, 9]
         labels_dict = {'ServiceDeliveryIndex': 'Service Index (1-10)'}
         
-    fig_map = px.scatter_mapbox(
-        df_filtered,
-        lat="Latitude",
-        lon="Longitude",
-        color=color_col,
-        size="RegisteredVoters_2026",
-        size_max=12,
-        color_continuous_scale=color_scale,
-        range_color=color_range,
-        zoom=6.8,
-        center={"lat": -29.0, "lon": 31.0},
-        mapbox_style="carto-positron",
-        hover_name="ward",
-        hover_data={
-            "Latitude": False,
-            "Longitude": False,
-            "District": True,
-            "municipality": True,
-            "LeadingParty": True,
-            "PredictedTurnout2026_RF": ':.1f',
-            "RegisteredVoters_2026": ':,',
-            "UnemploymentRate": ':.1f',
-            "PovertyRate": ':.1f'
-        },
-        labels=labels_dict,
-        height=380
-    )
+    hover_info = {
+        "Latitude": False,
+        "Longitude": False,
+        "District": True,
+        "municipality": True,
+        "LeadingParty": True,
+        "PredictedTurnout2026_RF": ':.1f',
+        "RegisteredVoters_2026": ':,',
+        "UnemploymentRate": ':.1f',
+        "PovertyRate": ':.1f',
+        "ServiceDeliveryIndex": ':.1f'
+    }
+    
+    try:
+        if hasattr(px, 'scatter_map'):
+            fig_map = px.scatter_map(
+                df_filtered,
+                lat="Latitude",
+                lon="Longitude",
+                color=color_col,
+                size="RegisteredVoters_2026",
+                size_max=12,
+                color_continuous_scale=color_scale,
+                range_color=color_range,
+                zoom=6.8,
+                center={"lat": -29.0, "lon": 31.0},
+                map_style="carto-positron",
+                hover_name="ward",
+                hover_data=hover_info,
+                labels=labels_dict,
+                height=380
+            )
+        else:
+            fig_map = px.scatter_mapbox(
+                df_filtered,
+                lat="Latitude",
+                lon="Longitude",
+                color=color_col,
+                size="RegisteredVoters_2026",
+                size_max=12,
+                color_continuous_scale=color_scale,
+                range_color=color_range,
+                zoom=6.8,
+                center={"lat": -29.0, "lon": 31.0},
+                mapbox_style="carto-positron",
+                hover_name="ward",
+                hover_data=hover_info,
+                labels=labels_dict,
+                height=380
+            )
+    except Exception:
+        fig_map = px.scatter(
+            df_filtered,
+            x="Longitude",
+            y="Latitude",
+            color=color_col,
+            size="RegisteredVoters_2026",
+            size_max=12,
+            color_continuous_scale=color_scale,
+            range_color=color_range,
+            hover_name="ward",
+            hover_data=hover_info,
+            labels=labels_dict,
+            height=380
+        )
+        
     fig_map.update_layout(
         margin={"r":0,"t":0,"l":0,"b":0},
         coloraxis_colorbar=dict(
