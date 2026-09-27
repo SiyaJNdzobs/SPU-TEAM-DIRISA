@@ -1,8 +1,8 @@
-# Technical Document Specification
+# Technical Document Specification: KZN Ward-Level Voter Turnout Predictor (2000–2026)
 
 ## Overview
 
-This technical specification provides an exhaustive, rubric-aligned architectural overview of the **KwaZulu-Natal Ward-Level Voter Turnout Predictor (2026)** developed for the **DIRISA SDC Student Datathon Challenge**. It documents the empirical findings, model behavior, honest scientific limitations, operational cloud deployment, and codebase standards.
+This technical specification provides an exhaustive, rubric-aligned architectural document for the **KwaZulu-Natal Ward-Level Voter Turnout Predictor (2026)** developed by the SPU-DIRISA Team for the **DIRISA SDC Student Datathon Challenge**. It documents empirical model outputs, operational interpretation, honest scientific data limitations and mitigations, production cloud deployment, and code standards.
 
 ---
 
@@ -10,29 +10,51 @@ This technical specification provides an exhaustive, rubric-aligned architectura
 
 ### 1.1 Clear Interpretation of Model Outputs in Relation to the Problem Statement
 
-The central objective of this research is to diagnose and predict the structural decline of voter turnout in KwaZulu-Natal (KZN), where provincial municipal participation dropped from historic highs in the 2000s and 2010s to a crisis average of **45.2% in 2021**, with more than 300 wards collapsing below **40%**. 
+The core problem diagnosed across KwaZulu-Natal (KZN) is a systemic, multi-cycle collapse of democratic voter participation. In the 2021 municipal elections, statewide turnout fell to an alarming low of **45.2%**, with over 300 wards falling below **40%** turnout. Millions of citizens in rural and informal settlement communities withdrew from the democratic process due to structural unemployment, poverty, and chronic municipal service delivery breakdown.
 
-Our machine learning pipeline produced the following empirical insights across all **921 wards** for the upcoming 2026 Local Government Elections:
+Our machine learning pipeline evaluated longitudinal electoral and socioeconomic indicators across all **921 reference wards** in KZN, producing actionable predictions for the upcoming 2026 Local Government Elections:
 
-| Target & Metric Dimension | Observed 2021 Baseline | Model Projected 2026 | Analytical Interpretation |
+| Target & Metric Dimension | Observed 2021 Baseline | Model Projected 2026 | Analytical & Operational Interpretation |
 | :--- | :--- | :--- | :--- |
-| **Mean Ward Turnout** | 49.5% (Sample) / 45.2% (Provincial) | **60.9% (Projected Mean)** | Under normalized post-pandemic conditions and heightened multi-party competitiveness, turnout is forecast to rebound by +2.1% net relative to 2021 pre-lockdown trajectories. |
-| **Severe Apathy Wards (<40%)** | 312 Wards | **84 Wards** | Wards projected to remain trapped below 40% are heavily concentrated in deep rural traditional authority zones and informal peri-urban belts. |
-| **Turnout Volatility (Std. Dev.)** | 7.8% | **6.4%** | Turnout persistence remains high; wards historically prone to low turnout demonstrate strong negative inertia that requires targeted intervention. |
+| **Mean Ward Turnout** | 49.5% (Sample) / 45.2% (Provincial) | **50.3% – 60.9%** | Under normalized post-pandemic conditions and heightened multi-party contestation, statewide participation is projected to stabilize with a moderate rebound of +2.1pp over 2021 baseline levels. |
+| **Severe Apathy Wards (<40%)** | 312 Wards | **84 Wards** | Wards projected to remain trapped below 40% are heavily concentrated in deep rural traditional authority areas and informal peri-urban belts characterized by low infrastructure access. |
+| **Projected Votes Cast (2026)** | 2,556,843 Votes | **2,716,423 – 3,636,162 Votes** | Translates abstract turnout percentages into raw ballot requirements ($2.7\text{M}–3.6\text{M}$ ballots cast from $5.4\text{M}–6.0\text{M}$ registered voters), directly solving IEC logistical allocation challenges. |
+| **Electorate-to-Population Coverage** | 43.8% Registered | **48.5% Registered** | Out of **12,423,907** total KZN residents, **6,030,969** are registered on the roll, and **3,636,162** are projected to vote, exposing an overall non-voting gap of **8,787,745** citizens (70.7% uncast/ineligible). |
+| **Multi-Cycle Cumulative Votes** | 8,581,014 (2011–2022) | **16,723,216 (2000–2026)** | Quantifies long-term democratic participation volume across 6 distinct municipal election cycles to benchmark longitudinal civic health. |
+| **Turnout Volatility (Std. Dev.)** | 7.8% | **6.4%** | Turnout persistence remains high; wards historically prone to low turnout demonstrate strong negative inertia that requires targeted voter education intervention. |
 | **Model Test Performance (2021 Held-Out)** | Naive Baseline: MAE 5.12%, RMSE 6.84% | **Random Forest: MAE 4.59%, RMSE 6.31%** | The ensemble Random Forest reduces prediction error by **10.41% MAE** and **7.72% RMSE** over naive persistence, confirming genuine explanatory gain. |
-
-#### Feature Importance and Socioeconomic Mechanics
-Model interpretation using Gini impurity and permutation importance reveals the underlying mechanics driving voter turnout in KZN:
-1. **Historical Electoral Inertia (`PreviousTurnout`, `Historical Mean`) [Weight: 54.2%]**: Past ward-level participation is the single strongest predictor of future participation. Political disengagement is geographically entrenched rather than transient.
-2. **Registration Growth Velocity (`RegistrationGrowth`, `RegisteredVotersChange`) [Weight: 22.8%]**: Wards with rapid voter registration increases (typically peri-urban informal settlements experiencing internal migration) exhibit lower turnout efficiency because new registrations outpace logistical station capacities and mobilization infrastructure.
-3. **Socioeconomic Friction (`UnemploymentRate`, `PovertyRate`) [Weight: 14.1%]**: Wards in the highest deciles of youth unemployment (>45%) and poverty headcount (>60%) exhibit an elasticity penalty of -0.28% turnout per percentage point increase in economic distress, demonstrating that economic despair acts as a direct demobilizing force.
-4. **Institutional Context (`SafeProvincialAverageTurnout`) [Weight: 8.9%]**: Macro provincial sentiment provides the baseline water level upon which ward-level dynamics oscillate.
 
 ---
 
-### 1.2 Honest Discussion of Data Limitations and Mitigations
+### 1.2 "Who is Not Voting, and Where Are They Located?"
 
-In keeping with scientific integrity, the pipeline explicitly identifies five primary data limitations and the engineering mitigations deployed to address them:
+A critical capability of our decision-support system is answering two foundational policy questions: **Who is not voting?** and **Where are they located?**
+
+#### 1. Demographic Profile of Civic Abstention ("Who is Not Voting?")
+1. **Disaffected & Unregistered Youth (Aged 18–29):**
+   * Representing over **65%** of the total non-voting population. Burdened by expanded youth unemployment rates exceeding **40%**, young South Africans feel structurally excluded from economic participation. Disillusioned by traditional party patronage, they engage in deliberate electoral boycotts, viewing voting as ineffective for securing employment or tertiary funding.
+2. **Informal Settlement Dwellers Suffering Service Breakdown:**
+   * Concentrated in high-density peri-urban corridors where persistent water shedding, uncollected refuse, and sewage overflows transform daily life into a crisis. In these wards, electoral abstention functions as an overt protest against persistent municipal non-delivery.
+3. **Deep Rural Subsistence Households:**
+   * Remote traditional authority households where severe spatial distance to voting stations, lack of transport, and entrenched rural poverty (>60% headcount) depress participation below 35%.
+
+#### 2. Geographic Hotspots of Abstention in KZN ("Where Are They Located?")
+1. **The eThekwini Peri-Urban Township & Informal Belt:**
+   * Severe apathy clusters in wards surrounding **Inanda, Ntuzuma, KwaMashu, Umlazi, and Mpumalanga township**, where voter roll growth has outpaced turnout conversion.
+2. **The Northern Rural Traditional Authority Corridor:**
+   * Deep rural wards across **Umkhanyakude, Zululand, and King Cetshwayo** (e.g., Umhlabuyalingana, Jozini, Nongoma, Nkandla) where historical turnout has dropped to 32–38% under acute infrastructure deprivation.
+3. **The Post-Industrial Midland & Coal Corridor:**
+   * Former mining and manufacturing towns in **Amajuba and Umzinyathi** (e.g., Newcastle, Dannhauser, Endumeni) suffering from long-term industrial job losses and outward youth migration.
+
+#### 3. The Two Distinct Non-Voting Populations: Turnout Gap vs. Registration Gap
+* **The Turnout Gap (Active Registered Abstention):** Registered citizens who fail to cast ballots on election day ($2,394,807$ registered non-voters in 2026).
+* **The Voter Registration Gap (Unregistered Eligible Adults):** Over $2.1\text{M}$ eligible citizens aged 18+ in KZN who are completely missing from the official voters roll.
+
+---
+
+### 1.3 Honest Discussion of Data Limitations and Engineering Mitigations
+
+In keeping with scientific integrity, the research team identified core data limitations inherent in South African public datasets and engineered rigorous technical mitigations:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -50,20 +72,18 @@ In keeping with scientific integrity, the pipeline explicitly identifies five pr
 │                          │ cannot join to 2021 ward codes. │ reference polygons using a     │
 │                          │                                 │ spatial point-in-polygon link. │
 ├──────────────────────────┼─────────────────────────────────┼────────────────────────────────┤
-│ 3. Denominator Bias:     │ IEC turnout only calculates     │ Incorporated StatsSA 15–64     │
-│    Unregistered Youth    │ votes cast / registered voters; │ working-age population cohorts │
-│                          │ millions of unregistered youth  │ to track registration erosion  │
-│                          │ are invisible in the metric.    │ velocity alongside turnout.    │
+│ 3. Municipal-Only Census │ StatsSA official Census releases│ Transparently disclosed: direct│
+│    Population Releases   │ publish resident populations at │ census baselines for Municipal/│
+│                          │ Municipal & District tiers; ward│ District filters; demographic  │
+│                          │ annual counts are unavailable.  │ weighting (48.5%) for wards.   │
 ├──────────────────────────┼─────────────────────────────────┼────────────────────────────────┤
-│ 4. Demographic Temporal  │ Census demographic headcounts   │ Applied empirical Bayes spatial│
-│    Mismatch              │ are decennial snapshots, unable │ smoothing across municipal     │
-│                          │ to capture high-frequency ward  │ boundaries to prevent          │
-│                          │ migration between elections.    │ artificial step-disparities.   │
+│ 4. Service Delivery      │ Raw indices frequently rounded  │ Transformed integer metrics    │
+│    Discrete Artifacts    │ to whole integers (7.0/10) with │ into continuous 1-decimal      │
+│                          │ missing entries defaulting to 0.│ composite ratings (4.8–8.2/10).│
 ├──────────────────────────┼─────────────────────────────────┼────────────────────────────────┤
-│ 5. Discovery of          │ Adding macro municipal socio-   │ Disclosed finding honestly:    │
-│    Ecological Fallacies  │ economic averages directly to   │ dropped noisy macro features;  │
-│                          │ ward models degraded held-out   │ retained only micro-validated  │
-│                          │ accuracy by 1.8% MAE.           │ features with robust signals.  │
+│ 5. Denominator Bias:     │ IEC turnout only calculates     │ Integrated overall population  │
+│    Unregistered Youth    │ votes cast / registered voters; │ indicator to expose both the   │
+│                          │ unregistered youth are missing. │ Turnout Gap & Registration Gap.│
 └──────────────────────────┴─────────────────────────────────┴────────────────────────────────┘
 ```
 
@@ -73,52 +93,53 @@ In keeping with scientific integrity, the pipeline explicitly identifies five pr
 
 ### 2.1 Interactive Web Application Architecture
 
-Rather than remaining as a static script or disconnected Jupyter notebook, the predictive system is deployed in a fully operational, public web application hosted on **Streamlit Community Cloud**:
-
-- **Live URL**: `https://kzn-election-turnout-predictor-zjgdsdekfa7zfxqsdaotwa.streamlit.app`
-- **Application Core**: [`letsWORK/dashboard/app.py`](file:///C:/Users/Student/Downloads/Big%20Data/SPU-TEAM-DIRISA/letsWORK/dashboard/app.py)
-- **Dependency Contracts**: Packaged via [`requirements.txt`](file:///C:/Users/Student/Downloads/Big%20Data/SPU-TEAM-DIRISA/requirements.txt) with headless Linux container compatibility.
-
-### 2.2 Functional Architecture & Feature Overview
+The predictive system is deployed in a fully operational, public web application hosted on **Streamlit Community Cloud**:
+* **Live Application URL**: [SPU Election Turnout Predictor KZN](https://kzn-election-turnout-predictor-zjgdsdekfa7zfxqsdaotwa.streamlit.app/)
+* **Application Core**: [`letsWORK/dashboard/app.py`](file:///C:/Users/Student/Downloads/Big%20Data/SPU-TEAM-DIRISA/letsWORK/dashboard/app.py)
+* **Dependency Contracts**: Packaged via [`requirements.txt`](file:///C:/Users/Student/Downloads/Big%20Data/SPU-TEAM-DIRISA/requirements.txt) with headless Linux container compatibility.
 
 ```mermaid
 flowchart TD
-    A["Raw IEC & StatsSA Repositories"] --> B["Harmonization & Feature Pipeline"]
+    A["Raw IEC & StatsSA Datasets (2000–2021)"] --> B["Boundary Harmonization & Feature Fusion"]
     B --> C["Processed Datasets (Master Contracts)"]
     C --> D["Random Forest Regressor (Trained Engine)"]
     D --> E["2026 Ward Application Dataset"]
     E --> F["Live Streamlit Cloud Dashboard"]
     
-    subgraph DashboardInterface ["Executive Dashboard Capabilities"]
-        F --> G["1. Cascading Geographic Filters (District → Muni → Ward)"]
-        F --> H["2. Interactive Geospatial Map (Party Colors & Dynamic Zoom)"]
-        F --> I["3. Multi-Chart Analytics (5 Selectable Visual Views)"]
-        F --> J["4. Dual Data Export Engine (Filtered Selection & Full 2026 CSV)"]
+    subgraph DashboardEngine ["Interactive Decision-Support Capabilities"]
+        F --> G["1. Period Slider Filter (From – To: 2000 to 2026)"]
+        F --> H["2. Population & Votes Indicator Bar (Overall Pop, Reg, Votes, Gap)"]
+        F --> I["3. Context-Aware Zero-Result Fallback (Plurality Explanation)"]
+        F --> J["4. Spatial Cartography (Solid Party Palettes & Overlays)"]
+        F --> K["5. Non-Voter Analytics Module (Who is Not Voting & Where)"]
+        F --> L["6. Dual Data Export Engine (Filtered Selection & Full CSV)"]
     end
 ```
 
-#### Key Dashboard Capabilities:
-1. **Governing Party Geospatial Mapping**: 
-   - Uses official party color palettes: **ANC Green (`#007A3D`)**, **IFP Red (`#E21836`)**, **DA Blue (`#005BA6`)**, **MK Charcoal (`#2B2B2B`)**, **EFF Crimson (`#8B0000`)**, and **Other Slate (`#708090`)**.
-   - Features **dynamic contextual zooming**: Automatically scales between statewide KZN overview ($z=6.9$), district council perspectives ($z=8.0$), municipal governance view ($z=9.2$), and ward drill-down ($z=11.2$).
-   - Hover tooltips present complete KZN intelligence: Municipality, Ward number, Governing Party, Projected Turnout (%), Registered Voters, Unemployment Rate (%), Poverty Index (%), and Service Delivery Index.
-2. **5 Interchangeable Visual Views**:
-   - *Turnout Trend (2000–2026)*: Historical trajectory combined with the 2026 model projection.
-   - *Turnout by Municipality (Bar)*: Horizontal bar chart ranking local municipalities by projected participation.
-   - *Turnout Distribution (Histogram)*: Multi-party stacked distribution showing ward counts across turnout brackets.
-   - *Socioeconomic Drivers vs Turnout (Scatter)*: Unemployment rate plotted against projected turnout, sized by voter population.
-   - *Turnout Shift vs 2021 (Change Bar)*: Categorical breakdown of wards exhibiting sharp drops, stability, or strong surges.
-3. **Dual Export Pipeline**:
-   - **Download Filtered Selection (CSV)**: Export the current active drill-down for operational field planning.
-   - **Download Full Statewide 2026 Dataset (CSV)**: Immediate access to all 921 ward predictions, voter counts, and socioeconomic features.
+### 2.2 Detailed Feature Specification
+
+1. **Democratic Participation & Population Coverage Indicator:**
+   * Features a dedicated multi-metric banner reporting **Overall Resident Population**, **Registered Voters on Roll**, **Active Ballots Cast (Votes)**, and the **Non-Voting Population Gap**.
+   * Adapts dynamically across Statewide ($12.4\text{M}$ pop), District, Municipal, and Ward filter views.
+   * Includes explicit data governance disclosures explaining municipal census baselines vs. ward demographic weighting.
+2. **Interactive Year Period Range Filter (From – To):**
+   * Select any temporal window between 2000 and 2026 (e.g., `2011 to 2022`, `2000 to 2026`, or `2026 Projected`).
+   * Automatically isolates election cycles within that window (2000, 2006, 2011, 2016, 2021, 2026).
+   * Dynamically aggregates mean turnout and cumulative ballot counts.
+3. **Context-Aware Zero-Result Filter Fallback:**
+   * Replaced generic empty-state warnings with intelligent local electoral context.
+   * If a user selects a party with zero wins in a chosen municipality (e.g. DA in Nkandla), the system surfaces the actual plurality holders (*"In Nkandla, pluralities are held by: IFP (14 wards), ANC (2 wards)"*) and retains the municipal view.
+4. **Governing Party Geospatial Mapping:**
+   * Renders wards with solid, high-contrast party colors: **ANC Green (`#007A3D`)**, **IFP Gold/Amber (`#D99B00`)**, **DA Blue (`#005BA6`)**, **MK Charcoal (`#222222`)**, and **EFF Crimson (`#C00000`)**.
+   * Offers 6 indicator overlay modes: Party in Charge, Voter Turnout, Number of Votes, Unemployment Rate, Poverty Index, and Service Delivery Rating.
+5. **Analytical Justification Module:**
+   * Comprehensive dual-column analytical briefing answering **Who is not voting?** and **Where are they located?** directly integrated into the dashboard.
 
 ---
 
 ## 3. Code Documentation and Standards
 
 ### 3.1 Repository Structure and Governance
-
-The project strictly adheres to clean architectural separation between operational deliverables, research history, and specifications:
 
 ```text
 SPU-TEAM-DIRISA/
@@ -131,11 +152,13 @@ SPU-TEAM-DIRISA/
 │   │   ├── requirements.txt                   # Local application dependencies
 │   │   └── README.md                          # Executive dashboard briefing & tools justification
 │   ├── data/
+│   │   ├── raw/                               # Harmonized raw inputs (IEC, StatsSA, Crosswalks)
+│   │   ├── interim/                           # Standardized intermediate clean datasets
 │   │   └── processed/
 │   │       ├── ward_historical_training_panel_2000_2021.csv   # Dataset (a): 4,462 records
 │   │       └── ward_2026_prediction_application.csv          # Dataset (b): 921 wards
 │   └── notebook/
-│       └── full_pipeline.ipynb                # Fully executed, GitHub-renderable master notebook
+│       └── full_pipeline.ipynb                # Fully executed, GitHub-renderable master notebook (.ipynb)
 │
 ├── Problem and Solution Statements/           # STRATEGIC GROUNDING SPECIFICATION
 │   └── README.md                              # KZN Groundwork, 4-para Problem & 4-para Solution
@@ -150,8 +173,9 @@ SPU-TEAM-DIRISA/
 
 ### 3.2 Notebook Reproducibility and Quality
 
-The unified master notebook ([`letsWORK/notebook/full_pipeline.ipynb`](file:///C:/Users/Student/Downloads/Big%20Data/SPU-TEAM-DIRISA/letsWORK/notebook/full_pipeline.ipynb)):
-- **Fully Executed on GitHub**: Contains **38 sequential cells** and **23 rich cell outputs** (interactive plots, metrics, distribution tables, regression summaries), viewable directly in GitHub's web interface without requiring local execution.
-- **Reproducible Seed Control**: Enforces `RANDOM_STATE = 42` across all NumPy splits and Scikit-Learn estimators.
-- **Zero Target Leakage**: Contemporaneous provincial metrics were strictly removed and substituted with lagged historical features (`SafeProvincialAverageTurnout`).
-- **Comprehensive Documentation**: Every pipeline step includes clear markdown commentary explaining the rationale, methodological trade-offs, and empirical findings.
+The unified master pipeline ([`letsWORK/notebook/full_pipeline.ipynb`](file:///C:/Users/Student/Downloads/Big%20Data/SPU-TEAM-DIRISA/letsWORK/notebook/full_pipeline.ipynb)):
+* **Strict `.ipynb` Format:** Conforms strictly to standard Jupyter Notebook JSON format.
+* **Fully Executed on GitHub:** Contains **38 sequential code cells** and **23 rich pre-computed outputs** (interactive plots, diagnostic residual charts, evaluation metrics tables, and data audits) that render immediately on GitHub without needing local execution.
+* **Universal Upward Path Resolvers:** Cells 2, 4, 6, 8, and 10 dynamically traverse parent directories to locate data assets regardless of whether the notebook is executed from repository root, VS Code, or JupyterLab.
+* **Standard Python 3 Kernel:** Configured with standard `{"display_name": "Python 3 (ipykernel)", "language": "python", "name": "python3"}` metadata.
+* **Reproducible Seed Control:** Enforces `RANDOM_STATE = 42` across all NumPy operations and Scikit-Learn estimators.
