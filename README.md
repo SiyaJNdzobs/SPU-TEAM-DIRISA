@@ -44,7 +44,7 @@ The **KZN Election Turnout Predictor** platform bridges advanced predictive mode
    - Built to standard Jupyter Notebook format with full Python 3 kernel metadata, robust path resolvers, and 23 pre-computed execution outputs for instant rendering on GitHub and all IDEs.
 9. **Stakeholder Evaluation & National Scaling Feedback System:**
    - Features a built-in review dialog allowing **IEC officials, registered voters, journalists, academic researchers, and data scientists** to rate model reliability out of 5 stars and submit qualitative feedback.
-   - Automatically transmits evaluations by sending them to us by email and records them to `stakeholder_reviews.csv` to directly guide our future development roadmap for scaling this predictive system from KwaZulu-Natal (921 wards) to **4,468 wards across all 9 South African provinces**.
+   - Automatically transmits evaluations to us by sending them to us by email and records them to `stakeholder_reviews.csv` to directly guide our future development roadmap for scaling this predictive system from KwaZulu-Natal (921 wards) to **4,468 wards across all 9 South African provinces**.
 
 ---
 
