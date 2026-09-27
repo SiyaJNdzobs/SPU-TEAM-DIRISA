@@ -1,0 +1,4 @@
+Model,Panel,Test_Wards,MAE,RMSE,R2,MAE_Improvement_pct
+Naive Historical Baseline (2016 -> 2021),5-Election Crosswalk-Corrected,901,11.1404,12.701,-1.6997,0.0
+Random Forest (Ward History Features),5-Election Crosswalk-Corrected,901,9.9802,11.7199,-1.2988,10.41
+Random Forest (+ Municipality Context),5-Election Crosswalk-Corrected,901,10.3711,12.0841,-1.4438,6.91
