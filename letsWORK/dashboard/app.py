@@ -344,7 +344,7 @@ def render_review_form():
             "2. Rate this predictive model out of 5 stars:",
             options=[1, 2, 3, 4, 5],
             value=5,
-            format_func=lambda x: f"{x} / 5 ⭐ " + ("(Excellent)" if x == 5 else "(Very Good)" if x == 4 else "(Good)" if x == 3 else "(Fair)" if x == 2 else "(Poor)")
+            format_func=lambda x: f"{x} / 5 " + ("(Excellent)" if x == 5 else "(Very Good)" if x == 4 else "(Good)" if x == 3 else "(Fair)" if x == 2 else "(Poor)")
         )
         
         feedback = st.text_area(
@@ -353,20 +353,20 @@ def render_review_form():
             height=110
         )
         
-        st.markdown("<div style='font-size: 0.78rem; color: #64748b; margin-top: -0.25rem;'>📬 <i>Submissions are automatically transmitted to <b>siyajndzobs@gmail.com</b> and recorded for national scaling roadmap decisions.</i></div>", unsafe_allow_html=True)
+        st.markdown("<div style='font-size: 0.78rem; color: #64748b; margin-top: -0.25rem;'><i>Submissions are automatically transmitted to <b>Us</b> and recorded for national scaling roadmap decisions.</i></div>", unsafe_allow_html=True)
         
-        submitted = st.form_submit_button("Submit Review & Send to siyajndzobs@gmail.com", type="primary", use_container_width=True)
+        submitted = st.form_submit_button("Submit Review & Send to Us", type="primary", use_container_width=True)
         
         if submitted:
             if role == "Select stakeholder role...":
-                st.error("⚠️ Please select a stakeholder group before submitting.")
+                st.error("Please select a stakeholder group before submitting.")
             elif role == "Other" and not other_text.strip():
-                st.error("⚠️ Please specify your stakeholder role in the text box above.")
+                st.error("Please specify your stakeholder role in the text box above.")
             else:
                 final_role = f"Other ({other_text.strip()})" if role == "Other" else role
                 save_review_record(final_role, rating, feedback)
                 sent_ok, msg = send_review_email(final_role, rating, feedback)
-                st.success("🎉 Thank you! Your review has been recorded and submitted to siyajndzobs@gmail.com to help scale this model nationally.")
+                st.success("Thank you! Your review has been recorded and submitted to Us to help scale this model nationally.")
                 st.balloons()
 
 if hasattr(st, "dialog"):
