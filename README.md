@@ -88,7 +88,7 @@ SPU-TEAM-DIRISA/
 |---|---|---|
 | Siyabonga José Ndzobondzobo | [SiyaJNdzobs](https://github.com/SiyaJNdzobs) | ICT |
 | Lehlogonolo Mothibi | [LEHLOGONOLO09](https://github.com/LEHLOGONOLO09) | Computer Science |
-| Mochene Des Rakobela | [Des-star-droid](https://github.com/Des-star-droid) | ICT |
+| Machene Des Rakobela | [Des-star-droid](https://github.com/Des-star-droid) | ICT |
 | Seraphine Mutwambaka Bharula | [Starfire-star](https://github.com/Starfire-star) | Computer Science |
 | Simamkele Jokose | [Princess24-maker](https://github.com/Princess24-maker) | ICT |
 
