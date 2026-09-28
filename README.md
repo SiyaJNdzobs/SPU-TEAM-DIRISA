@@ -1,7 +1,7 @@
 # SPU-DIRISA Team: KwaZulu-Natal Ward-Level Voter Turnout Predictor (2000–2026)
 
 > [!IMPORTANT]
-> ### 🧭 Project Navigation & Pipeline Evolution Roadmap
+> ###  Project Navigation & Pipeline Evolution Roadmap
 > 
 > * **Phase 1 — Exploratory Groundwork ([`strategising/`](https://github.com/SiyaJNdzobs/SPU-TEAM-DIRISA/tree/main/strategising)):** Preserves initial stage-by-stage exploration across separated notebooks (Data Collection, Cleaning, Merging, EDA, and Modeling). Initial data collection and training yielded poor predictive performance, halting early iterations and prompting a comprehensive pipeline redesign.
 > * **Phase 2 — Unified Pipeline & Historical Rectification ([`notebooks/Unified Notebook/01_End_to_End_Unified_Pipeline.ipynb`](https://github.com/SiyaJNdzobs/SPU-TEAM-DIRISA/blob/main/notebooks/Unified%20Notebook/01_End_to_End_Unified_Pipeline.ipynb)):** Consolidates exploratory steps into a cohesive pipeline, rigorously audits cleaning accuracy, and resolves the initial poor model performance by acquiring and incorporating omitted **2000 and 2006** LGE turnout cycles before retraining end-to-end.
