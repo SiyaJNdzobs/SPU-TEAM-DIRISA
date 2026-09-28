@@ -184,32 +184,24 @@ The project is organised in a single GitHub repository. The main working folder 
 
 ```text
 SPU-TEAM-DIRISA/
-├── README.md                                  # Top-level index directing reviewers to letsWORK/
+├── README.md                                  # Top-level index, core features, team directory
 ├── requirements.txt                           # Cloud deployment dependencies contract
 │
-├── letsWORK/                                  # PRIMARY PRODUCTION WORKSPACE
-│   ├── dashboard/
-│   │   ├── app.py                             # Live interactive Streamlit dashboard
-│   │   ├── requirements.txt                   # Local application dependencies
-│   │   └── README.md                          # Executive dashboard briefing & tools justification
-│   ├── data/
-│   │   ├── raw/                               # Harmonized raw inputs (IEC, StatsSA, Crosswalks)
-│   │   ├── interim/                           # Standardized intermediate clean datasets
-│   │   └── processed/
-│   │       ├── ward_historical_training_panel_2000_2021.csv   # Dataset (a): 4,462 records
-│   │       └── ward_2026_prediction_application.csv          # Dataset (b): 921 wards
-│   └── notebook/
-│       └── full_pipeline.ipynb                # Fully executed, GitHub-renderable master notebook (.ipynb)
+├── SPU-TEAM-DIRISA-Team-Qualifier/            # OFFICIAL COMPETITION SUBMISSION DELIVERABLES
+│   ├── 1. Defined Problem Statement/          # Ground diagnostics & research justification
+│   ├── 2. Working Notebook and Codebase/      # Executed pipeline, live dashboard & data
+│   │   ├── full_pipeline.ipynb                # Fully executed, GitHub-renderable master notebook (.ipynb)
+│   │   └── dashboard/app.py                   # Live interactive Streamlit dashboard
+│   ├── 3. Trained Model and Outputs/          # Trained Random Forest model & predictions
+│   ├── 4. Video Submission/                   # Clickable YouTube demonstration & walkthrough
+│   │   └── README.md                          # Interactive video links (https://youtu.be/pvsST8agdB0)
+│   └── 5. Presentation Slides/                # Executive presentation slide decks (.pdf, .pptx)
 │
-├── Problem and Solution Statements/           # STRATEGIC GROUNDING SPECIFICATION
-│   └── README.md                              # KZN Groundwork, 4-para Problem & 4-para Solution
-│
-├── Technical Document Specification/          # RUBRIC-ALIGNED TECHNICAL SPECIFICATION
-│   └── README.md                              # Analysis, limitations, deployment, & code standards
-│
-└── strategising/                              # HISTORICAL RESEARCH & INTERMEDIATE STAGES
-    ├── data/                                  # Raw & intermediate datasets
-    └── notebooks/                             # 15 staged modular exploration notebooks
+└── Back up/                                   # CONSOLIDATED WORKSPACE BACKUP ARCHIVE
+    ├── letsWORK/                              # Production pipeline, dashboard, & processed datasets
+    ├── strategising/                          # Historical research & 15 modular notebooks
+    ├── Problem and Solution Statements/       # Ground diagnostics & policy solutions
+    └── Technical Document Specification/      # Rubric-aligned architectural specification
 ```
 
 The data folder follows the order of the pipeline. Original files are kept unchanged in `raw/`, cleaned versions are stored in `interim/`, and the final datasets used for training and prediction are stored in `processed/`. This means every step can be traced back to its source data.
