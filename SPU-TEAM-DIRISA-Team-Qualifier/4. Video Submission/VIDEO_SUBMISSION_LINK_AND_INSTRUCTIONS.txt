@@ -1,1 +1,13 @@
-Video link: https://youtu.be/pvsST8agdB0
+🎥 SPU-DIRISA Team: Video Submission Link & Instructions
+
+YouTube Video Demonstration:
+https://youtu.be/pvsST8agdB0
+
+Clickable Markdown Link:
+[Watch Video Submission on YouTube](https://youtu.be/pvsST8agdB0)
+
+Live Application Dashboard:
+https://kzn-election-turnout-predictor-zjgdsdekfa7zfxqsdaotwa.streamlit.app/
+
+GitHub Repository:
+https://github.com/SiyaJNdzobs/SPU-TEAM-DIRISA
