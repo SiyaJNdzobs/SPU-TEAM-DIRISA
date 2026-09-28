@@ -1,7 +1,7 @@
-# 🎥 SPU-DIRISA Team: Video Submission
+#  SPU-DIRISA Team: Video Submission
 
-### 🔗 Project Demonstration & Model Walkthrough
-👉 **[Watch Video Submission on YouTube](https://youtu.be/pvsST8agdB0)**
+###  Project Demonstration & Model Walkthrough
+ **[Watch Video Submission on YouTube](https://youtu.be/pvsST8agdB0)**
 
 - **Direct URL:** [https://youtu.be/pvsST8agdB0](https://youtu.be/pvsST8agdB0)
 - **Project:** KwaZulu-Natal Ward-Level Voter Turnout Predictor (2000–2026)
