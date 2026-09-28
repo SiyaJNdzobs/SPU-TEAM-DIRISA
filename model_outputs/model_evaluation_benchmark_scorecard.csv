@@ -1,0 +1,4 @@
+Model_Architecture,Features_Used,MAE_pp,RMSE,R2_Score,MAE_Error_Reduction_vs_Baseline,Selection_Status
+1. Naive Historical Persistence Baseline (2016 -> 2021),1 (Previous Turnout only),11.1404,12.701,-1.6997,0.00% (Baseline),Baseline Benchmark
+2. Constrained Random Forest (Ward History Features),"5 (PreviousTurnout, RegisteredVotersChange, RegistrationGrowth, SafeProvAvg, SafeBelowProvAvg)",10.1389,11.8687,-1.3575,+8.99% (Outperforms Baseline),WINNING MODEL (DEPLOYED)
+3. Random Forest (+ Municipal Contextual Demographics),"8 (Ward History + Municipal Population, Poverty Rate, Urban Share)",11.4759,13.1575,-1.8988,-3.01% (Performance Degradation),Rejected (Reportable Negative Finding: Ecological Fallacy)

@@ -1,0 +1,6 @@
+Feature_Name,Importance_Weight,Operational_Interpretation
+PreviousTurnout,0.7042,Electoral participation habit & persistent ward civic memory
+SafeBelowProvincialAverageTurnout,0.1581,Binary flag indicating entrenched below-average civic disengagement
+RegistrationGrowth,0.0815,Percentage growth rate in registered electorate between election cycles
+RegisteredVotersChange,0.0384,Absolute change in registered voters (captures migration and youth addition)
+SafeProvincialAverageTurnout,0.0178,Macro-provincial electoral climate benchmark
