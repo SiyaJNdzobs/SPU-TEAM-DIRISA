@@ -1288,3 +1288,21 @@ with fb_col2:
     </div>
     """, unsafe_allow_html=True)
 
+# Downloadable trained model artifact section
+st.markdown("<br>", unsafe_allow_html=True)
+model_dl_candidates = [
+    os.path.join(os.path.dirname(__file__), "..", "models", "kzn_voter_turnout_rf_model.joblib"),
+    os.path.join(os.path.dirname(__file__), "..", "..", "models", "kzn_voter_turnout_rf_model.joblib")
+]
+model_dl_path = next((p for p in model_dl_candidates if os.path.exists(p)), None)
+
+if model_dl_path:
+    with open(model_dl_path, "rb") as f_model:
+        st.download_button(
+            label="Download Trained Production Model (kzn_voter_turnout_rf_model.joblib)",
+            data=f_model.read(),
+            file_name="kzn_voter_turnout_rf_model.joblib",
+            mime="application/octet-stream",
+            use_container_width=True
+        )
+
