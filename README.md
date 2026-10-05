@@ -92,5 +92,5 @@ SPU-TEAM-DIRISA/
 | Machuene Des Rakobela | [Des-star-droid](https://github.com/Des-star-droid) | ICT |
 | Seraphine Mutwambaka Bharula | [Starfire-star](https://github.com/Starfire-star) | Computer Science |
 | Simamkele Jokose | [Princess24-maker](https://github.com/Princess24-maker) | ICT |
-| Phatsimo Roobajie | [Phatsimo883](https://github.com/Phatsimo883) | Data Science |
+
 
