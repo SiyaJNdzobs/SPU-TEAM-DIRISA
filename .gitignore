@@ -218,6 +218,6 @@ __marimo__/
 .streamlit/secrets.toml
 
 data/raw/
-data/processed/
+# data/processed/ is intentionally tracked so Streamlit Cloud can access the app data
 
 # SPU-DIRISA Qualifier Submission Repository
