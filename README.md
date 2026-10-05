@@ -49,36 +49,7 @@ The **KZN Election Turnout Predictor** platform bridges advanced predictive mode
 
 ---
 
-## Repository Architecture
 
-```text
-SPU-TEAM-DIRISA/
-├── README.md                                  # Executive overview, live links, and team directory
-├── requirements.txt                           # Cloud deployment dependencies contract
-│
-├── letsWORK/                                  # CONSOLIDATED PRODUCTION WORKSPACE
-│   ├── dashboard/
-│   │   ├── app.py                             # Live Streamlit decision-support application
-│   │   ├── requirements.txt                   # Dashboard environment specification
-│   │   └── README.md                          # Technical architecture & interface guide
-│   ├── data/
-│   │   ├── raw/                               # Harmonized raw inputs (IEC, StatsSA, Crosswalks)
-│   │   ├── interim/                           # Standardized intermediate clean datasets
-│   │   └── processed/
-│   │       ├── ward_historical_training_panel_2000_2021.csv   # Dataset (a): 4,462 historical records
-│   │       └── ward_2026_prediction_application.csv          # Dataset (b): 921 wards with 2026 forecasts
-│   └── notebook/
-│       └── full_pipeline.ipynb                # Executed 38-cell end-to-end master pipeline (.ipynb)
-│
-├── Problem and Solution Statements/           # STRATEGIC RESEARCH SPECIFICATION
-│   └── README.md                              # KZN ground diagnostics, 4-para Problem & 4-para Solution
-│
-├── Technical Document Specification/          # RUBRIC-ALIGNED TECHNICAL SPECIFICATION
-│   └── README.md                              # Model outputs, limitations, deployment, & code standards
-│
-└── strategising/                              # HISTORICAL EXPLORATION & RESEARCH STAGES
-    ├── data/                                  # Staged modular datasets
-    └── notebooks/                             # 15 staged modular exploration notebooks
 ```
 
 ---
