@@ -50,10 +50,6 @@ The **KZN Election Turnout Predictor** platform bridges advanced predictive mode
 ---
 
 
-```
-
----
-
 ## Team Members
 
 | Full Name | GitHub Profile | Program |
